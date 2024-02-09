@@ -199,6 +199,8 @@ class Program
 
         Console.WriteLine(Logs);
 
+
+        
         while (true)
         {
             if (isSubPage1)
@@ -213,7 +215,7 @@ class Program
                 Console.WriteLine("1. 第1种json格式");
                 Console.WriteLine("2. 第2种json格式");
                 Console.WriteLine("3. 第3种json格式");
-                Console.WriteLine("4. 第4中json格式");
+                Console.WriteLine("4. 第4种json格式");
                 Console.WriteLine("5. 多文件指定键");
                 Console.WriteLine("0. 返回主页面");
             }
@@ -268,7 +270,7 @@ class Program
                     outputFilePath = outputFilePath.Replace("\\", "/");
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
 
-                    Extract.Extract_1(jsonFilePath, Keys, outputFilePath);
+                    Extract.Extract_1(jsonFilePath, outputFilePath, Keys);
                     Console.WriteLine("\n\n提取成功");
                 }
                 else if (input == 2)
@@ -302,7 +304,12 @@ class Program
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
                     outputFilePath = outputFilePath.Replace("\\", "/");
 
-                    Extract.Extract_3(jsonFilePath, keys, keys2, keys3, outputFilePath);
+                    //Extract.Extract_3(jsonFilePath, outputFilePath, keys, keys2, keys3);
+                    Extract.Extract_3(jsonFilePath, outputFilePath, keys, keys2, keys3);
+                    //string stringsKey = "_strings";
+                    //string arrayKey = "Array";
+                    //string valueKey = "Value";
+
                 }
                 else if (input == 4)
                 {
@@ -403,7 +410,10 @@ class Program
                     valuesFilePath = valuesFilePath.Replace("\\", "/");
                     outputFilePath = outputFilePath.Replace("\\", "/");
 
-                    Replace.Replace_3(jsonFilePath, keys, keys2, keys3, valuesFilePath, outputFilePath);
+
+                    Replace.Replace_3(jsonFilePath, valuesFilePath, outputFilePath, keys, keys2, keys3);
+
+                    //Replace.Replace_3(jsonFilePath, valuesFilePath, outputFilePath, keys, keys2, keys3);
                     Console.WriteLine("\n\n替换成功");
                 }
                 else if (input == 4)

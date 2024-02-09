@@ -37,16 +37,26 @@ namespace 自动提取翻译
             File.WriteAllText(outputFilePath, data.ToString(Formatting.None));
         }
 
-        public static void Replace_3(string json, string KEYS, string KEYS2, string KEYS3, string txtvalues, string filePath)
+        public static void Replace_3(string jsonFilePath, string valuesFilePath, string outputFilePath, string stringsKey, string arrayKey, string valueKey)
         {
+            string json = File.ReadAllText(jsonFilePath);
+
+            
             JObject jsonObject = JObject.Parse(json);
-            JArray array = (JArray)jsonObject[KEYS][KEYS2];
-            for (int i = 0; i < array.Count; i++)
+
+            string[] lines = File.ReadAllLines(valuesFilePath);
+
+            
+            JArray valuesArray = (JArray)jsonObject[stringsKey][arrayKey];
+
+            for (int i = 0; i < lines.Length; i++)
             {
-                array[i][KEYS3] = txtvalues[i];
+                string value = lines[i];
+
+                valuesArray[i][valueKey] = value;
             }
-            string replacedJson = jsonObject.ToString();
-            File.WriteAllText(filePath, replacedJson);
+
+            File.WriteAllText(outputFilePath, jsonObject.ToString(Formatting.None));
         }
 
         public static void Replace_4(string jsonFilePath, string keys, string keys2,string inputFilePath, string outputFilePath)

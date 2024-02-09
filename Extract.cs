@@ -10,19 +10,15 @@ namespace 自动提取翻译
 {
     internal class Extract
     {
-        public static void Extract_1(string jsonFilePath, string Keys, string outputFilePath)
+        public static void Extract_1(string inputFilePath, string outputFilePath, string key)
         {
-            string json = File.ReadAllText(jsonFilePath);
-            JObject jsonObject = JObject.Parse(json);
-            JObject npcNames = (JObject)jsonObject[Keys];
-            using (StreamWriter file = new StreamWriter(outputFilePath))
-            {
-                foreach (var npcName in npcNames)
-                {
-                    file.WriteLine(npcName.Value);
-                }
-            }
+            string json = File.ReadAllText(inputFilePath);
+            JObject obj = JObject.Parse(json);
+            JObject valuesObj = (JObject)obj[key];
+            var values = valuesObj.Properties().Select(p => p.Value.ToString()).ToArray();
+            File.WriteAllLines(outputFilePath, values);
         }
+
 
         public static void Extract_2(string filePath, string customKeyName, string outputFilePath)
         {
@@ -38,14 +34,21 @@ namespace 自动提取翻译
             }
         }
 
-        public static string[] Extract_3(string json, string keys, string keys2, string keys3, string filePath)
+        public static void Extract_3(string filePath, string outputFilePath, string stringsKey, string arrayKey, string valueKey)
         {
-            JObject jsonObject = JObject.Parse(json);
-            JArray array = (JArray)jsonObject[keys][keys2];
-            var values = array.Select(item => item[keys3].ToString()).ToArray();
-            File.WriteAllLines(filePath, values);
-            return values;
+            string json = File.ReadAllText(filePath);
+            dynamic data = JsonConvert.DeserializeObject(json);
+            var values = data[stringsKey][arrayKey];
+            string output = "";
+
+            foreach (var item in values)
+            {
+                string value = item[valueKey];
+                output += value + "\n";
+            }
+            File.WriteAllText(outputFilePath, output);
         }
+
         public static void Extract_4(string jsonFilePath, string keys, string keys2,string outputFilePath)
         {
             string jsonContent = File.ReadAllText(jsonFilePath);
