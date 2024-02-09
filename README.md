@@ -1,1 +1,1 @@
-# AutomaticExtractionTranslation
+# 自动提取翻译

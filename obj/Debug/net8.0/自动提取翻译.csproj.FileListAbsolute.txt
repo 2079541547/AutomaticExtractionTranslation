@@ -1,0 +1,17 @@
+C:\Users\Administrator\source\repos\自动提取翻译\bin\Debug\net8.0\自动提取翻译.exe
+C:\Users\Administrator\source\repos\自动提取翻译\bin\Debug\net8.0\自动提取翻译.deps.json
+C:\Users\Administrator\source\repos\自动提取翻译\bin\Debug\net8.0\自动提取翻译.runtimeconfig.json
+C:\Users\Administrator\source\repos\自动提取翻译\bin\Debug\net8.0\自动提取翻译.dll
+C:\Users\Administrator\source\repos\自动提取翻译\bin\Debug\net8.0\自动提取翻译.pdb
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.dll
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\refint\自动提取翻译.dll
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.pdb
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.genruntimeconfig.cache
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\ref\自动提取翻译.dll
+C:\Users\Administrator\source\repos\自动提取翻译\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.csproj.AssemblyReference.cache
+C:\Users\Administrator\source\repos\自动提取翻译\obj\Debug\net8.0\自动提取翻译.csproj.CopyComplete

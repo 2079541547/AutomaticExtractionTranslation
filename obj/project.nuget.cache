@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aecbvYw4fvMIcVrCvYhLTrbFnmu/4wztIiPXVVBnPxIdVSQNj/Me3OisI/1Cu1nMSdb1MoAX4+EhYcs7n4LSaw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Administrator\\source\\repos\\自动提取翻译\\自动提取翻译.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
