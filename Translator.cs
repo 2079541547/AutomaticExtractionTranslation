@@ -1,37 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 public class Translator
 {
     public void Translate(string txt, Action<string> callback, string mod = "自动检测", bool skipTags = false)
     {
-        var types = new Dictionary<string, string>
-        {
-            {"自动检测", "AUTO"},
-            {"中译英", "ZH_CN2EN"},
-            {"中译日", "ZH_CN2JA"},
-            {"中译韩", "ZH_CN2KR"},
-            {"中译法", "ZH_CN2FR"},
-            {"中译俄", "ZH_CN2RU"},
-            {"中译西", "ZH_CN2SP"},
-            {"英译中", "EN2ZH_CN"},
-            {"日译中", "JA2ZH_CN"},
-            {"韩译中", "KR2ZH_CN"},
-            {"法译中", "FR2ZH_CN"},
-            {"俄译中", "RU2ZH_CN"},
-            {"西译中", "SP2ZH_CN"}
-        };
+        var url = "http://api.fanyi.baidu.com/api/trans/vip/translate";
+        var appid = "20231029001863039";
+        var key = "KKZnIqv6MExqMKjNS1FR";
+        var salt = DateTime.Now.Millisecond.ToString();
+        var sign = MD5Encrypt(appid + txt + salt + key);
 
-        if (!types.ContainsKey(mod))
-        {
-            mod = "自动检测";
-        }
-
-        var url = "https://m.youdao.com/translate";
-        var data = $"inputtext={Uri.EscapeDataString(txt)}&type={types[mod]}";
+        var data = $"q={Uri.EscapeDataString(txt)}&from=auto&to=en&appid={appid}&salt={salt}&sign={sign}";
         var bytes = Encoding.UTF8.GetBytes(data);
 
         var request = (HttpWebRequest)WebRequest.Create(url);
@@ -51,18 +37,20 @@ public class Translator
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
                     var content = reader.ReadToEnd();
-                    var result = content.Split("translateResult")[1].Split("</div>")[0].Split("<li>")[1].Split("</li>")[0];
+                    var translation = JsonDocument.Parse(content);
+                    var translatedText = translation.RootElement.GetProperty("trans_result")[0].GetProperty("dst").GetString();
 
                     if (skipTags)
                     {
-                        result = result.Replace("&lt;", "<").Replace("&gt;", ">").Replace("& lt;", "<").Replace("& gt;", ">");
+                        translatedText = translatedText.Replace("&lt;", "<").Replace("&gt;", ">").Replace("& lt;", "<").Replace("& gt;", ">");
                     }
 
-                    callback(result);
+                    callback(translatedText);
                 }
             }
         }
     }
+
 
     public void TranslateFile(string filePath, string outputPath, string mod = "英译中", bool skipTags = false)
     {
@@ -95,7 +83,6 @@ public class Translator
         }
     }
 
-
     public void TranslateFolder(string folderPath, string outputFolder, string mod = "英译中", bool skipTags = false, int parallelism = 4)
     {
         var files = Directory.GetFiles(folderPath);
@@ -111,5 +98,20 @@ public class Translator
         Console.WriteLine("翻译结束");
     }
 
+    private string MD5Encrypt(string input)
+    {
+        using (var md5 = MD5.Create())
+        {
+            var inputBytes = Encoding.UTF8.GetBytes(input);
+            var hashBytes = md5.ComputeHash(inputBytes);
+            var sb = new StringBuilder();
 
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+    }
 }

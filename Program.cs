@@ -212,21 +212,17 @@ class Program
             else if (isSubPage2)
             {
                 Console.WriteLine("提取字符串\n");
-                Console.WriteLine("1. 第1种json格式");
-                Console.WriteLine("2. 第2种json格式");
-                Console.WriteLine("3. 第3种json格式");
-                Console.WriteLine("4. 第4种json格式");
-                Console.WriteLine("5. 多文件指定键");
+                Console.WriteLine("1. 提取所有键的值");
+                Console.WriteLine("2. 提取一种键的值");
+                Console.WriteLine("3. 多文件指定键");
                 Console.WriteLine("0. 返回主页面");
             }
             else if (isSubPage3)
             {
                 Console.WriteLine("替换字符串\n");
-                Console.WriteLine("1. 第1种json格式");
-                Console.WriteLine("2. 第2种json格式");
-                Console.WriteLine("3. 第3种json格式");
-                Console.WriteLine("4. 第4种json格式");
-                Console.WriteLine("5. 多文件指定键");
+                Console.WriteLine("1. 替换所有键的值");
+                Console.WriteLine("2. 替换一种键的值");
+                Console.WriteLine("3. 多文件指定键");
                 Console.WriteLine("0. 返回主页面");
             }
             else
@@ -263,15 +259,13 @@ class Program
                 {
                     Console.WriteLine("请输入json路径：");
                     string jsonFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入指定键：");
-                    string Keys = Console.ReadLine();
                     Console.WriteLine("请输入输出路径：");
                     string outputFilePath = Console.ReadLine();
 
                     outputFilePath = outputFilePath.Replace("\\", "/");
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
 
-                    Extract.Extract_1(jsonFilePath, outputFilePath, Keys);
+                    Extract.ExtractStringValues(jsonFilePath, outputFilePath);
                     Console.WriteLine("\n\n提取成功");
                 }
                 else if (input == 2)
@@ -282,50 +276,14 @@ class Program
                     string Keys = Console.ReadLine();
                     Console.WriteLine("请输入输出路径：");
                     string outputFilePath = Console.ReadLine();
-
+                    
                     outputFilePath = outputFilePath.Replace("\\", "/");
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
 
-                    Extract.Extract_2(jsonFilePath, Keys, outputFilePath);
+                    Extract.ExtractStringValues_1(jsonFilePath, Keys, outputFilePath);
                     Console.WriteLine("\n\n提取成功");
                 }
                 else if (input == 3)
-                {
-                    Console.WriteLine("请输入json路径：");
-                    string jsonFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入指定最大键：");
-                    string keys = Console.ReadLine();
-                    Console.WriteLine("请输入指定中键：");
-                    string keys2 = Console.ReadLine();
-                    Console.WriteLine("请输入指定最小键：");
-                    string keys3 = Console.ReadLine();
-                    Console.WriteLine("请输入输出路径：");
-                    string outputFilePath = Console.ReadLine();
-
-                    jsonFilePath = jsonFilePath.Replace("\\", "/");
-                    outputFilePath = outputFilePath.Replace("\\", "/");
-
-                    Extract.Extract_3(jsonFilePath, outputFilePath, keys, keys2, keys3);
-                    
-                }
-                else if (input == 4)
-                {
-                    Console.WriteLine("请输入json路径：");
-                    string jsonFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入指定中键：");
-                    string Keys = Console.ReadLine();
-                    Console.WriteLine("请输入指定小键：");
-                    string Keys2 = Console.ReadLine();
-                    Console.WriteLine("请输入输出路径：");
-                    string outputFilePath = Console.ReadLine();
-
-                    outputFilePath = outputFilePath.Replace("\\", "/");
-                    jsonFilePath = jsonFilePath.Replace("\\", "/");
-
-                    Extract.Extract_4(jsonFilePath, Keys, Keys2, outputFilePath);
-                    Console.WriteLine("\n\n提取成功");
-                }
-                else if (input == 5)
                 {
                     Console.WriteLine("请输入文件夹路径：");
                     string jsonFilePath = Console.ReadLine();
@@ -337,7 +295,6 @@ class Program
                     outputFilePath = outputFilePath.Replace("\\", "/");
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
 
-                    Extract.ExtractMTextFromJsonFiles(jsonFilePath, Keys,outputFilePath);
                     Console.WriteLine("\n\n提取成功");
 
                 }
@@ -356,18 +313,22 @@ class Program
                 {
                     Console.WriteLine("请输入json路径：");
                     string jsonFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入指定键：");
-                    string keys = Console.ReadLine();
                     Console.WriteLine("请输入文本路径：");
                     string valuesFilePath = Console.ReadLine();
                     Console.WriteLine("请输入输出路径：");
                     string outputFilePath = Console.ReadLine();
+                    Console.WriteLine("是否格式化（false/true）：");
+                    bool gsh = Convert.ToBoolean(Console.ReadLine());
 
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
                     valuesFilePath = valuesFilePath.Replace("\\", "/");
                     outputFilePath = outputFilePath.Replace("\\", "/");
 
-                    Replace.Replace_1(jsonFilePath, keys, valuesFilePath, outputFilePath);
+                    Replace.ReplaceStringValues(jsonFilePath, valuesFilePath, outputFilePath, gsh);
+
+                    Console.WriteLine("\n\n替换成功");
+
+
                     Console.WriteLine("\n\n替换成功");
                 }
                 else if (input == 2)
@@ -380,60 +341,18 @@ class Program
                     string valuesFilePath = Console.ReadLine();
                     Console.WriteLine("请输入输出路径：");
                     string outputFilePath = Console.ReadLine();
+                    Console.WriteLine("是否格式化（false/true）：");
+                    bool gsh = Convert.ToBoolean(Console.ReadLine());
 
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
                     valuesFilePath = valuesFilePath.Replace("\\", "/");
                     outputFilePath = outputFilePath.Replace("\\", "/");
 
-                    Replace.Replace_2(jsonFilePath, keys, valuesFilePath, outputFilePath);
+                    Replace.ReplaceStringValues_1(jsonFilePath, valuesFilePath, outputFilePath, keys, gsh);
+                    
                     Console.WriteLine("\n\n替换成功");
                 }
                 else if (input == 3)
-                {
-                    Console.WriteLine("请输入json路径：");
-                    string jsonFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入指定最大键：");
-                    string keys = Console.ReadLine();
-                    Console.WriteLine("请输入指定中键：");
-                    string keys2 = Console.ReadLine();
-                    Console.WriteLine("请输入指定最小键：");
-                    string keys3 = Console.ReadLine();
-                    Console.WriteLine("请输入文本路径：");
-                    string valuesFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入输出路径：");
-                    string outputFilePath = Console.ReadLine();
-
-                    jsonFilePath = jsonFilePath.Replace("\\", "/");
-                    valuesFilePath = valuesFilePath.Replace("\\", "/");
-                    outputFilePath = outputFilePath.Replace("\\", "/");
-
-
-                    Replace.Replace_3(jsonFilePath, valuesFilePath, outputFilePath, keys, keys2, keys3);
-
-                  
-                    Console.WriteLine("\n\n替换成功");
-                }
-                else if (input == 4)
-                {
-                    Console.WriteLine("请输入json路径：");
-                    string jsonFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入指定中键：");
-                    string keys = Console.ReadLine();
-                    Console.WriteLine("请输入指定最小键：");
-                    string keys2 = Console.ReadLine();
-                    Console.WriteLine("请输入文本路径：");
-                    string valuesFilePath = Console.ReadLine();
-                    Console.WriteLine("请输入输出路径：");
-                    string outputFilePath = Console.ReadLine();
-
-                    jsonFilePath = jsonFilePath.Replace("\\", "/");
-                    valuesFilePath = valuesFilePath.Replace("\\", "/");
-                    outputFilePath = outputFilePath.Replace("\\", "/");
-
-                    Replace.Replace_4(jsonFilePath, keys, keys2, valuesFilePath, outputFilePath);
-                    Console.WriteLine("\n\n替换成功");
-                }
-                else if (input == 5)
                 {
                     Console.WriteLine("请输入json文件夹路径：");
                     string jsonFilePath = Console.ReadLine();
