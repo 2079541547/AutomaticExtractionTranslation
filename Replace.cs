@@ -41,12 +41,12 @@ namespace 自动提取翻译
         {
             string json = File.ReadAllText(jsonFilePath);
 
-            
+
             JObject jsonObject = JObject.Parse(json);
 
             string[] lines = File.ReadAllLines(valuesFilePath);
 
-            
+
             JArray valuesArray = (JArray)jsonObject[stringsKey][arrayKey];
 
             for (int i = 0; i < lines.Length; i++)
@@ -59,7 +59,7 @@ namespace 自动提取翻译
             File.WriteAllText(outputFilePath, jsonObject.ToString(Formatting.None));
         }
 
-        public static void Replace_4(string jsonFilePath, string keys, string keys2,string inputFilePath, string outputFilePath)
+        public static void Replace_4(string jsonFilePath, string keys, string keys2, string inputFilePath, string outputFilePath)
         {
             string jsonContent = File.ReadAllText(jsonFilePath);
             string[] newValues = File.ReadAllLines(inputFilePath);
@@ -84,6 +84,8 @@ namespace 自动提取翻译
 
         public static void ReplaceJsonText(string jsonFolderPath, string textFolderPath, string outputFolderPath, string textKey)
         {
+
+
             string[] jsonFiles = Directory.GetFiles(jsonFolderPath, "*.json");
 
             foreach (string jsonFile in jsonFiles)
@@ -113,5 +115,6 @@ namespace 自动提取翻译
                 File.WriteAllText(outputFilePath, json);
             }
         }
+
     }
 }

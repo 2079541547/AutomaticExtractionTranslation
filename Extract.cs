@@ -49,7 +49,7 @@ namespace 自动提取翻译
             File.WriteAllText(outputFilePath, output);
         }
 
-        public static void Extract_4(string jsonFilePath, string keys, string keys2,string outputFilePath)
+        public static void Extract_4(string jsonFilePath, string keys, string keys2, string outputFilePath)
         {
             string jsonContent = File.ReadAllText(jsonFilePath);
 
@@ -76,6 +76,14 @@ namespace 自动提取翻译
         {
             string[] jsonFiles = Directory.GetFiles(folderPath, "*.json");
 
+            string outputFileName = outputFolderPath;
+            string outputFilePath = Path.Combine(outputFolderPath, outputFileName);
+
+            if (!File.Exists(outputFilePath))
+            {
+                File.WriteAllText(outputFilePath, "");
+            }
+
             foreach (string jsonFile in jsonFiles)
             {
                 JObject json = JObject.Parse(File.ReadAllText(jsonFile));
@@ -86,13 +94,9 @@ namespace 自动提取翻译
                 }
 
                 string mText = json[keys].ToString();
-
-                string outputFileName = Path.GetFileNameWithoutExtension(jsonFile);
-                string outputFilePath = Path.Combine(outputFolderPath, outputFileName + ".txt");
-
-                File.WriteAllText(outputFilePath, mText);
+                mText = mText.Replace("\n", @"\n");
+                File.AppendAllText(outputFilePath, mText + " -+-+- " + Path.GetFileNameWithoutExtension(jsonFile) + "\n");
             }
         }
-
     }
 }

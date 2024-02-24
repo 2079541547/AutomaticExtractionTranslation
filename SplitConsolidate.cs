@@ -8,6 +8,16 @@
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i].Trim();
+                int separatorIndex = line.IndexOf("-+-+-");
+                if (separatorIndex != -1)
+                {
+                    line = line.Substring(0, separatorIndex).Trim();
+                }
+                else
+                {
+                    // 如果不存在分隔符，则使用原来的行进行处理
+                    line = lines[i];
+                }
                 string fileName = $"{i + 1}.txt";
                 string outputFilePath = Path.Combine(outputDirectory, fileName);
                 File.WriteAllText(outputFilePath, line);
@@ -53,5 +63,7 @@
                 Console.WriteLine("合并失败");
             }
         }
+
     }
+
 }

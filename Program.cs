@@ -200,7 +200,7 @@ class Program
         Console.WriteLine(Logs);
 
 
-        
+
         while (true)
         {
             if (isSubPage1)
@@ -237,8 +237,9 @@ class Program
                 Console.WriteLine("3. 替换字符串");
                 Console.WriteLine("4. 分割字符串为文件");
                 Console.WriteLine("5. 合并分割文件");
-                Console.WriteLine("6. 自动翻译（文件）");
-                Console.WriteLine("7. 自动翻译（文件夹）");
+                Console.WriteLine("6. 重新分配多文件");
+                Console.WriteLine("7. 自动翻译（文件）");
+                Console.WriteLine("8. 自动翻译（文件夹）");
                 Console.WriteLine("0. 退出");
             }
 
@@ -304,12 +305,8 @@ class Program
                     jsonFilePath = jsonFilePath.Replace("\\", "/");
                     outputFilePath = outputFilePath.Replace("\\", "/");
 
-                    //Extract.Extract_3(jsonFilePath, outputFilePath, keys, keys2, keys3);
                     Extract.Extract_3(jsonFilePath, outputFilePath, keys, keys2, keys3);
-                    //string stringsKey = "_strings";
-                    //string arrayKey = "Array";
-                    //string valueKey = "Value";
-
+                    
                 }
                 else if (input == 4)
                 {
@@ -413,7 +410,7 @@ class Program
 
                     Replace.Replace_3(jsonFilePath, valuesFilePath, outputFilePath, keys, keys2, keys3);
 
-                    //Replace.Replace_3(jsonFilePath, valuesFilePath, outputFilePath, keys, keys2, keys3);
+                  
                     Console.WriteLine("\n\n替换成功");
                 }
                 else if (input == 4)
@@ -502,7 +499,22 @@ class Program
 
                     SplitConsolidate.MergeTextFiles(outputFilePath, inputDirectory);
                 }
-                else if (input == 6)
+                else if (input == 6) 
+                {
+                    Console.WriteLine("请输入提取多文件的字符串文件路径: ");
+                    string inputfile = Console.ReadLine();
+                    Console.WriteLine("请输入被分割的字符串文件的文件夹路径: ");
+                    string inputDirectory = Console.ReadLine();
+                    Console.WriteLine("请输入分配输出的文件夹路径: ");
+                    string outputDirectory = Console.ReadLine();
+
+                    inputfile = inputfile.Replace("\\", "/");
+                    outputDirectory = outputDirectory.Replace("\\", "/");
+                    inputDirectory = inputDirectory.Replace("\\", "/");
+
+                    specially.ReplaceAndSaveAsJson(inputfile, inputDirectory, outputDirectory);
+                }
+                else if (input == 7)
                 {
                     Console.WriteLine("请输入文本路径：");
                     string inputFile = Console.ReadLine();
@@ -520,7 +532,7 @@ class Program
                     }, "中译英", true);
                     translator.TranslateFile(inputFile, outputFilePath, "英译中", skip_tags);
                 }
-                else if (input == 7)
+                else if (input == 8)
                 {
                     Console.WriteLine("请输入文件夹路径：");
                     string inputFile = Console.ReadLine();
